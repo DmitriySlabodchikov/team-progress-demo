@@ -44,6 +44,9 @@ export default class ProgressView extends JetView {
 			const name = person.fname + " " + person.lname;
 			this.newLegend(name);
 		});
+		this.on(this.app,"get:report:views", data => {
+			data.views.progress = chart;
+		});
 	}
 	newLegend(name){
 		let chart = this.$$("progress");

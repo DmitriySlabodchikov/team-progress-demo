@@ -54,6 +54,10 @@ export default class CompareView extends JetView {
 		};
 	}
 	init(){
-		this.$$("chart").parse(getProjects());
+		const chart = this.$$("chart");
+		chart.parse(getProjects());
+		this.on(this.app,"get:report:views", data => {
+			data.views.compare = chart;
+		});
 	}
 }

@@ -65,6 +65,10 @@ export default class StatisticsView extends JetView{
 		};
 	}
 	init(){
-		this.$$("stats").parse(getStats());
+		const chart = this.$$("stats");
+		chart.parse(getStats());
+		this.on(this.app,"get:report:views", data => {
+			data.views.completedTasks = chart;
+		});
 	}
 }

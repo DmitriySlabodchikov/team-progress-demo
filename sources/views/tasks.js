@@ -129,6 +129,10 @@ export default class TasksView extends JetView {
 			else
 				view.hideOverlay();
 		});
+
+		this.on(this.app,"get:report:views", data => {
+			data.views.tasks = view;
+		});
 	}
 	urlChange(){
 		const param = this.getParam("lookup");

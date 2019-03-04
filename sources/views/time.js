@@ -38,8 +38,12 @@ export default class TimeView extends JetView {
 		};
 	}
 	init(view){
+		const chart = view.queryView({ view:"chart" });
 		this.on(this.app,"person:select",person => {
-			view.queryView({ view:"chart" }).parse(webix.copy(person.hours));
+			chart.parse(webix.copy(person.hours));
+		});
+		this.on(this.app,"get:report:views", data => {
+			data.views.hoursSpent = chart;
 		});
 	}
 }

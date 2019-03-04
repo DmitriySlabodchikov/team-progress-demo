@@ -68,5 +68,9 @@ export default class PersonsView extends JetView {
 			list.select(id);
 			list.showItem(id);
 		});
+
+		this.on(this.app,"get:report:views", data => {
+			data.person = list.getItem(list.getSelectedId());
+		});
 	}
 }

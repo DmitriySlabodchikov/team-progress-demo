@@ -2,6 +2,7 @@ import {JetView} from "webix-jet";
 import NotificationPopup from "views/notifications";
 import SettingsPopup from "views/settings";
 import NewTaskPopup from "views/newtask";
+import NewTaskReport from "views/newreport";
 
 export default class ToolbarView extends JetView{
 	config(){
@@ -35,6 +36,16 @@ export default class ToolbarView extends JetView{
 									inputHeight:40,
 									batch:"default",
 									click:() => this.newtask.showWindow()
+								},
+								{ 
+									view:"button",
+									type:"form",
+									localId:"reports",
+									label:_("Generate report"),
+									autowidth:true,
+									inputHeight:40,
+									batch:"default",
+									click:() => this.newreport.showWindow()
 								},
 								{ batch:"default" },
 								{
@@ -126,6 +137,7 @@ export default class ToolbarView extends JetView{
 		this.notifications = this.ui(NotificationPopup);
 		this.settings = this.ui(SettingsPopup);
 		this.newtask = this.ui(NewTaskPopup);
+		this.newreport = this.ui(NewTaskReport);
 
 		this.on(this.app,"read:notifications",() => {
 			this.$$("bell").config.badge = 0;
@@ -146,10 +158,12 @@ export default class ToolbarView extends JetView{
 		const _ = this.app.getService("locale")._;
 		let nav_btn = this.$$("favs");
 		if (url[1].page === "projects"){
+			this.$$("reports").hide();
 			nav_btn.config.icon = "mdi mdi-view-dashboard";
 			nav_btn.define("tooltip",_("Go back to the dashboard"));
 		}
 		else if (url[1].page === "dashboard"){
+			this.$$("reports").show();
 			nav_btn.config.icon = "mdi mdi-bookmark-check";
 			nav_btn.define("tooltip",_("Open the list of all tasks"));
 		}
